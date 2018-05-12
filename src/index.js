@@ -18,7 +18,12 @@ class App extends React.Component {
 		const sounds = [
 			{ name: 'fakeNews', file: '/audio/fakeNews.wav' },
 			{ name: 'china', file: '/audio/china.wav' },
-			{ name: 'greatWall', file: '/audio/greatWall.wav' }
+			{ name: 'greatWall', file: '/audio/greatWall.wav' },
+			{ name: 'brag', file: '/audio/brag.wav' },
+			{ name: 'pussy', file: '/audio/pussy.wav' },
+			{ name: 'crooked', file: '/audio/crooked.wav' },
+						{ name: 'fired', file: '/audio/fired.wav' }
+
 		];
 
 		this.audio = {};
@@ -36,6 +41,7 @@ class App extends React.Component {
 		this.inRecording = {};
 		this.interval = 0;
 		this.playTimeouts = [];
+		this.playLoop = null;
 
 		//bindings
 		this.record = this.record.bind(this);
@@ -73,12 +79,12 @@ class App extends React.Component {
 						.time - startTime;
 				this.playAllBeats();
 			} else {
-				this.stopAll();
+				clearTimeout(this.playLoop);
 				const catchup =
 					this.interval - (new Date() - this.topOfLoopTime);
-				this.playTimeouts.push(
-					setTimeout(() => this.playAllBeats(), catchup)
-				);
+				var loopTO = setTimeout(() => this.playAllBeats(), catchup);
+				this.playLoop = loopTO;
+				this.playTimeouts.push(loopTO);
 			}
 		}
 	}
@@ -98,31 +104,44 @@ class App extends React.Component {
 				);
 			}
 		});
-		this.playTimeouts.push(setTimeout(() => this.playAllBeats(), this.interval));
+		var loopTO = setTimeout(() => this.playAllBeats(), this.interval);
+		this.playLoop = loopTO;
+		this.playTimeouts.push(loopTO);
 	}
 
 	playBeats(beats) {
 		const startTime = beats[0].time;
 		beats.forEach(beat => {
 			beat.play &&
-				this.playTimeouts.push(setTimeout(() => beat.play(beat.name), beat.time - startTime));
+				this.playTimeouts.push(
+					setTimeout(
+						() => beat.play(beat.name),
+						beat.time - startTime
+					)
+				);
 		});
 	}
 
 	play(beatName) {
 		this.setState({ playing: beatName });
-		this.audio[beatName].playSound(0);
+		this.audio[beatName].playSound();
 		setTimeout(() => this.setState({ playing: '' }), 100);
 	}
 
 	stopAll() {
+		clearTimeout(this.playLoop);
 		this.playTimeouts.forEach(to => clearTimeout(to));
+		this.playTimeouts = [];
 		Object.keys(this.audio).forEach(key => this.audio[key].stopSound());
 	}
 
 	clearAll() {
 		this.stopAll();
 		this.beatLoops = [];
+	}
+
+	resumeAll() {
+		this.playAllBeats();
 	}
 
 	logBeat(name) {
@@ -144,6 +163,11 @@ class App extends React.Component {
 	// updateDimensions() {
 	// 	this.setState({ width: window.innerWidth, height: window.innerHeight });
 	// }
+	handleClick(name) {
+		this.state.recording
+			? this.logBeat(name)
+			: this.audio[name].playSound();
+	}
 
 	componentDidMount() {
 		// window.addEventListener('resize', this.updateDimensions);
@@ -164,6 +188,9 @@ class App extends React.Component {
 					Start MUSIC
 				</div>
 				<div onClick={() => this.clearAll()}>Reset</div>
+				<div onClick={() => this.stopAll()}>Pause</div>
+				<div onClick={() => this.resumeAll()}>Resume</div>
+
 				<img
 					ref={ref => (this.drumset = ref)}
 					src={Drums}
@@ -172,11 +199,7 @@ class App extends React.Component {
 
 				<map name="image-map">
 					<area
-						onClick={
-							this.state.recording
-								? () => this.logBeat('fakeNews')
-								: () => this.audio['fakeNews'].playSound()
-						}
+						onClick={() => this.handleClick('pussy')}
 						target=""
 						alt="bass"
 						title="bass"
@@ -184,11 +207,7 @@ class App extends React.Component {
 						shape="circle"
 					/>
 					<area
-						onClick={
-							this.state.recording
-								? () => this.logBeat('china')
-								: () => this.audio['china'].playSound()
-						}
+						onClick={() => this.handleClick('china')}
 						target=""
 						alt="left_symbol"
 						title="left_symbol"
@@ -196,6 +215,7 @@ class App extends React.Component {
 						shape="rect"
 					/>
 					<area
+						onClick={() => this.handleClick('fired')}
 						target=""
 						alt="right_symbol"
 						title="right_symbol"
@@ -203,11 +223,7 @@ class App extends React.Component {
 						shape="rect"
 					/>
 					<area
-						onClick={
-							this.state.recording
-								? () => this.logBeat('greatWall')
-								: () => this.audio['greatWall'].playSound()
-						}
+						onClick={() => this.handleClick('greatWall')}
 						target=""
 						alt="top_left_drum"
 						title="top_left_drum"
@@ -215,6 +231,7 @@ class App extends React.Component {
 						shape="rect"
 					/>
 					<area
+						onClick={() => this.handleClick('brag')}
 						target=""
 						alt="top_right_drum"
 						title="top_right_drum"
@@ -222,6 +239,7 @@ class App extends React.Component {
 						shape="rect"
 					/>
 					<area
+						onClick={() => this.handleClick('fakeNews')}
 						target=""
 						alt="bottom_left_drum"
 						title="bottom_left_drum"
@@ -229,6 +247,7 @@ class App extends React.Component {
 						shape="poly"
 					/>
 					<area
+						onClick={() => this.handleClick('crooked')}
 						target=""
 						alt="bottom_right_drum"
 						title="bottom_right_drum"
