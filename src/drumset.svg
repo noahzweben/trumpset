@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1153px" height="701px" viewBox="0 0 1153 701" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.2 (51160) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 5</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="51.9521475%" y1="17.0138931%" x2="50%" y2="75.5153123%" id="linearGradient-1">
+            <stop stop-color="#00B8FF" offset="0%"></stop>
+            <stop stop-color="#0038FF" offset="100%"></stop>
+        </linearGradient>
+        <circle id="path-2" cx="94" cy="87" r="87"></circle>
+        <circle id="path-3" cx="94" cy="87" r="87"></circle>
+        <circle id="path-4" cx="168" cy="168" r="168"></circle>
+        <circle id="path-5" cx="113" cy="113" r="113"></circle>
+        <circle id="path-6" cx="113" cy="113" r="113"></circle>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-7">
+            <stop stop-color="#FFEF00" offset="0%"></stop>
+            <stop stop-color="#A0770C" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop" transform="translate(-112.000000, -246.000000)">
+            <g id="Group-5" transform="translate(112.000000, 246.000000)">
+                <g id="Group-3" transform="translate(343.000000, 110.000000)">
+                    <path d="M174,29 L174,29 C177.865993,29 181,32.1340068 181,36 L181,242 L167,242 L167,36 C167,32.1340068 170.134007,29 174,29 Z" id="Rectangle-Copy-4" fill="#ECF0F1"></path>
+                    <path d="M17.2807744,134 L17,134 L17,80 L30.9673596,80 C46.3211836,56.5164926 72.8485563,41 103,41 C133.151444,41 159.678816,56.5164926 175.03264,80 L189,80 L189,134 L188.719226,134 C185.156935,178.222621 148.139813,213 103,213 C57.8601866,213 20.8430654,178.222621 17.2807744,134 Z" id="Combined-Shape" fill="url(#linearGradient-1)" transform="translate(103.000000, 127.000000) rotate(-12.000000) translate(-103.000000, -127.000000) "></path>
+                    <g id="Oval-Copy-2">
+                        <use fill="#ECF0F1" fill-rule="evenodd" xlink:href="#path-2"></use>
+                        <circle stroke="#00B8FF" stroke-width="11" cx="94" cy="87" r="81.5"></circle>
+                    </g>
+                </g>
+                <g id="Group-3-Copy" transform="translate(646.000000, 231.000000) scale(-1, 1) translate(-646.000000, -231.000000) translate(543.000000, 110.000000)">
+                    <path d="M174,29 L174,29 C177.865993,29 181,32.1340068 181,36 L181,242 L167,242 L167,36 C167,32.1340068 170.134007,29 174,29 Z" id="Rectangle-Copy-4" fill="#ECF0F1"></path>
+                    <path d="M17.2807744,134 L17,134 L17,80 L30.9673596,80 C46.3211836,56.5164926 72.8485563,41 103,41 C133.151444,41 159.678816,56.5164926 175.03264,80 L189,80 L189,134 L188.719226,134 C185.156935,178.222621 148.139813,213 103,213 C57.8601866,213 20.8430654,178.222621 17.2807744,134 Z" id="Combined-Shape" fill="url(#linearGradient-1)" transform="translate(103.000000, 127.000000) rotate(-12.000000) translate(-103.000000, -127.000000) "></path>
+                    <g id="Oval-Copy-2">
+                        <use fill="#ECF0F1" fill-rule="evenodd" xlink:href="#path-3"></use>
+                        <circle stroke="#00B8FF" stroke-width="11" cx="94" cy="87" r="81.5"></circle>
+                    </g>
+                </g>
+                <path d="M171,0 L171,0 C174.865993,-7.10171439e-16 178,3.13400675 178,7 L178,679 L164,679 L164,7 C164,3.13400675 167.134007,7.10171439e-16 171,0 Z" id="Rectangle" fill="#ECF0F1"></path>
+                <path d="M949,73 L949,73 C952.865993,73 956,76.1340068 956,80 L956,701 L942,701 L942,80 C942,76.1340068 945.134007,73 949,73 Z" id="Rectangle-Copy" fill="#ECF0F1"></path>
+                <g id="Group-2" transform="translate(364.000000, 326.000000)">
+                    <g id="Group" transform="translate(0.000000, 24.000000)" fill="url(#linearGradient-1)">
+                        <path d="M0.105145631,162 L0,162 L0,133 L3.65103644,133 C19.7534139,57.015318 87.2183864,0 168,0 C248.781614,0 316.246586,57.015318 332.348964,133 L336,133 L336,162 L335.894854,162 C335.964756,163.991354 336,165.991561 336,168 C336,260.783838 260.783838,336 168,336 C75.216162,336 0,260.783838 0,168 C0,165.991561 0.0352438762,163.991354 0.10514691,161.999964 Z" id="Combined-Shape"></path>
+                    </g>
+                    <g id="Oval">
+                        <use fill="#ECF0F1" fill-rule="evenodd" xlink:href="#path-4"></use>
+                        <circle stroke="#00B8FF" stroke-width="11" cx="168" cy="168" r="162.5"></circle>
+                    </g>
+                    <path d="M262,329 L262,329 C265.865993,329 269,332.134007 269,336 L269,360 L255,360 L255,336 C255,332.134007 258.134007,329 262,329 Z" id="Rectangle-Copy-2" fill="#ECF0F1" transform="translate(262.000000, 344.500000) rotate(-33.000000) translate(-262.000000, -344.500000) "></path>
+                    <path d="M72,329 L72,329 C75.8659932,329 79,332.134007 79,336 L79,360 L65,360 L65,336 C65,332.134007 68.1340068,329 72,329 Z" id="Rectangle-Copy-3" fill="#ECF0F1" transform="translate(72.000000, 344.500000) scale(-1, 1) rotate(-33.000000) translate(-72.000000, -344.500000) "></path>
+                </g>
+                <g id="Group-4" transform="translate(700.000000, 262.000000)">
+                    <path d="M113,0 L113,0 C116.865993,-7.10171439e-16 120,3.13400675 120,7 L120,426 L106,426 L106,7 C106,3.13400675 109.134007,7.10171439e-16 113,0 Z" id="Rectangle-Copy-5" fill="#ECF0F1"></path>
+                    <g id="Group-2-Copy-2" transform="translate(0.000000, 9.000000)">
+                        <g id="Group" transform="translate(0.000000, 16.000000)" fill="url(#linearGradient-1)">
+                            <path d="M0.0707229542,108.964286 L0,108.964286 L0,89.4583333 L2.45575665,89.4583333 C13.2865224,38.3495889 58.664748,0 113,0 C167.335252,0 212.713478,38.3495889 223.544243,89.4583333 L226,89.4583333 L226,108.964286 L225.929277,108.964286 C225.976294,110.303709 226,111.649086 226,113 C226,175.408177 175.408177,226 113,226 C50.5918233,226 0,175.408177 0,113 C0,111.649086 0.0237057024,110.303709 0.0707238147,108.964261 Z" id="Combined-Shape"></path>
+                        </g>
+                        <g id="Oval">
+                            <use fill="#ECF0F1" fill-rule="evenodd" xlink:href="#path-5"></use>
+                            <circle stroke="#00B8FF" stroke-width="11" cx="113" cy="113" r="107.5"></circle>
+                        </g>
+                    </g>
+                </g>
+                <g id="Group-4-Copy" transform="translate(138.000000, 262.000000)">
+                    <path d="M113,0 L113,0 C116.865993,-7.10171439e-16 120,3.13400675 120,7 L120,426 L106,426 L106,7 C106,3.13400675 109.134007,7.10171439e-16 113,0 Z" id="Rectangle-Copy-5" fill="#ECF0F1"></path>
+                    <g id="Group-2-Copy-2" transform="translate(0.000000, 9.000000)">
+                        <g id="Group" transform="translate(0.000000, 16.000000)" fill="url(#linearGradient-1)">
+                            <path d="M0.0707229542,108.964286 L0,108.964286 L0,89.4583333 L2.45575665,89.4583333 C13.2865224,38.3495889 58.664748,0 113,0 C167.335252,0 212.713478,38.3495889 223.544243,89.4583333 L226,89.4583333 L226,108.964286 L225.929277,108.964286 C225.976294,110.303709 226,111.649086 226,113 C226,175.408177 175.408177,226 113,226 C50.5918233,226 0,175.408177 0,113 C0,111.649086 0.0237057024,110.303709 0.0707238147,108.964261 Z" id="Combined-Shape"></path>
+                        </g>
+                        <g id="Oval">
+                            <use fill="#ECF0F1" fill-rule="evenodd" xlink:href="#path-6"></use>
+                            <circle stroke="#00B8FF" stroke-width="11" cx="113" cy="113" r="107.5"></circle>
+                        </g>
+                    </g>
+                </g>
+                <path d="M172.5,54 C181.660465,60.572403 201.493798,67.572403 232,75 C262.506202,82.427597 300.172869,89.427597 345,96 L0,96 C49.4681626,87.4860126 85.4681626,80.4860126 108,75 C130.531837,69.5139874 152.031837,62.5139874 172.5,54 Z" id="Triangle" fill="url(#linearGradient-7)"></path>
+                <path d="M947.186324,51.5090819 C993.075221,51.5090819 983.577497,54.8840581 1037.74786,68.0380094 C1073.86144,76.8073103 1111.74339,87.8265953 1151.39371,101.095865 L742.978937,101.095865 C789.70178,85.5342876 826.399919,74.5150026 853.073354,68.0380094 C893.083508,58.3225197 901.297427,51.5090819 947.186324,51.5090819 Z" id="Triangle-Copy-2" fill="url(#linearGradient-7)" transform="translate(947.186324, 76.302473) rotate(-11.000000) translate(-947.186324, -76.302473) "></path>
+                <path d="M172.5,98 C181.660465,104.572403 201.493798,111.572403 232,119 C262.506202,126.427597 300.172869,133.427597 345,140 L0,140 C49.4681626,131.486013 85.4681626,124.486013 108,119 C130.531837,113.513987 152.031837,106.513987 172.5,98 Z" id="Triangle-Copy" fill="url(#linearGradient-7)" transform="translate(172.500000, 119.000000) scale(1, -1) translate(-172.500000, -119.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -2,8 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import Drums from './drumset.jpg';
+import Drums from './drumset.svg';
 import AudioClass from './AudioClass';
+
+import Bass from './images/bass.png'
+import BassPlay from './images/bass_play.png'
+import LowRight from './images/lowRight.png'
+import LowRightPlay from './images/lowRight_play.png'
 
 class App extends React.Component {
 	constructor(props) {
@@ -22,8 +27,7 @@ class App extends React.Component {
 			{ name: 'brag', file: '/audio/brag.wav' },
 			{ name: 'pussy', file: '/audio/pussy.wav' },
 			{ name: 'crooked', file: '/audio/crooked.wav' },
-						{ name: 'fired', file: '/audio/fired.wav' }
-
+			{ name: 'fired', file: '/audio/fired.wav' }
 		];
 
 		this.audio = {};
@@ -48,6 +52,7 @@ class App extends React.Component {
 		this.stopRecord = this.stopRecord.bind(this);
 		this.play = this.play.bind(this);
 		this.logBeat = this.logBeat.bind(this);
+		this.updateDimensions = this.updateDimensions.bind(this);
 	}
 
 	record(e) {
@@ -123,9 +128,10 @@ class App extends React.Component {
 	}
 
 	play(beatName) {
+		clearTimeout(this.clearFaceTimeout);
 		this.setState({ playing: beatName });
 		this.audio[beatName].playSound();
-		setTimeout(() => this.setState({ playing: '' }), 100);
+		this.clearFaceTimeout = setTimeout(() => this.setState({ playing: '' }), 500);
 	}
 
 	stopAll() {
@@ -160,17 +166,19 @@ class App extends React.Component {
 		this.inRecording.beats.push(beat);
 	}
 
-	// updateDimensions() {
-	// 	this.setState({ width: window.innerWidth, height: window.innerHeight });
-	// }
+	updateDimensions() {
+		this.setState({ width: window.innerWidth, height: window.innerHeight });
+	}
+
+
 	handleClick(name) {
 		this.state.recording
 			? this.logBeat(name)
-			: this.audio[name].playSound();
+			: this.play(name);
 	}
 
 	componentDidMount() {
-		// window.addEventListener('resize', this.updateDimensions);
+		window.addEventListener('resize', this.updateDimensions);
 		window.addEventListener('keydown', this.record);
 		window.addEventListener('keyup', this.stopRecord);
 	}
@@ -191,70 +199,12 @@ class App extends React.Component {
 				<div onClick={() => this.stopAll()}>Pause</div>
 				<div onClick={() => this.resumeAll()}>Resume</div>
 
-				<img
-					ref={ref => (this.drumset = ref)}
-					src={Drums}
-					useMap="#image-map"
-				/>
+				<div className="helperDiv">
+				<img className='drums' src={Drums} ref={ref => this.drumRef = ref} useMap="#image-map" />
+				<img onClick={() => this.handleClick('pussy')} src={this.state.playing==='pussy' ? BassPlay : Bass} className='face bass pointer'/>
+				<img onClick={() => this.handleClick('fakeNews')} src={this.state.playing==='fakeNews' ? LowRightPlay : LowRight} className='face lowRight pointer'/>
 
-				<map name="image-map">
-					<area
-						onClick={() => this.handleClick('pussy')}
-						target=""
-						alt="bass"
-						title="bass"
-						coords="352,444,152"
-						shape="circle"
-					/>
-					<area
-						onClick={() => this.handleClick('china')}
-						target=""
-						alt="left_symbol"
-						title="left_symbol"
-						coords="239,65,62,16"
-						shape="rect"
-					/>
-					<area
-						onClick={() => this.handleClick('fired')}
-						target=""
-						alt="right_symbol"
-						title="right_symbol"
-						coords="539,52,661,95"
-						shape="rect"
-					/>
-					<area
-						onClick={() => this.handleClick('greatWall')}
-						target=""
-						alt="top_left_drum"
-						title="top_left_drum"
-						coords="200,105,352,201"
-						shape="rect"
-					/>
-					<area
-						onClick={() => this.handleClick('brag')}
-						target=""
-						alt="top_right_drum"
-						title="top_right_drum"
-						coords="375,199,497,110"
-						shape="rect"
-					/>
-					<area
-						onClick={() => this.handleClick('fakeNews')}
-						target=""
-						alt="bottom_left_drum"
-						title="bottom_left_drum"
-						coords="117,157,116,297,229,311,278,256,274,216,197,202,193,150"
-						shape="poly"
-					/>
-					<area
-						onClick={() => this.handleClick('crooked')}
-						target=""
-						alt="bottom_right_drum"
-						title="bottom_right_drum"
-						coords="401,209,401,227,559,233,566,154,505,138,502,207"
-						shape="poly"
-					/>
-				</map>
+				</div>
 			</div>
 		);
 	}

@@ -1,5 +1,40 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+	background-color: #191919;
+}
+
+img {
+	cursor: pointer;
+}
+
+.pointer {
+	cursor: pointer !important;
+}
+
+.helperDiv {
+	position: relative;
+}
+.drums {
+	width: 70%;
+	margin: auto;
+	display: block;
+}
+
+.face {
+	display: block;
+	position: absolute;
+}
+
+.bass {
+	width: 20%;
+	bottom: 5%;
+	left: 37.3%;
+}
+
+.lowRight {
+	width:13%;
+	right:29.2%;
+	top:39.8%;
 }
