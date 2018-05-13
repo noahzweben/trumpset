@@ -4,7 +4,9 @@ import './index.css';
 import registerServiceWorker from './registerServiceWorker';
 import Drums from './drumset.svg';
 import AudioClass from './AudioClass';
-
+import Intro from './Intro';
+import Start from './Start';
+import Menu from './Menu';
 import Bass from './images/bass.png';
 import BassPlay from './images/bass_play.png';
 import LowRight from './images/lowRight.png';
@@ -26,7 +28,10 @@ class App extends React.Component {
 			width: window.innerWidth,
 			height: window.innerHeight,
 			recording: false,
-			playing: ''
+			playing: '',
+			info: false,
+			start: true,
+			paused: false
 		};
 
 		const sounds = [
@@ -75,6 +80,7 @@ class App extends React.Component {
 				loopTime: new Date(),
 				beats: []
 			};
+			this.resumeAll();
 			this.setState({ recording: true });
 		}
 	}
@@ -112,7 +118,7 @@ class App extends React.Component {
 			) {
 				this.playTimeouts.push(
 					setTimeout(
-						() => this.playBeats(beatLoop.beats,i),
+						() => this.playBeats(beatLoop.beats, i),
 						i === 0 ? 0 : beatLoop.loopTime
 					)
 				);
@@ -123,20 +129,20 @@ class App extends React.Component {
 		this.playTimeouts.push(loopTO);
 	}
 
-	playBeats(beats,i) {
+	playBeats(beats, i) {
 		const startTime = beats[0].time;
 		beats.forEach(beat => {
 			beat.play &&
 				this.playTimeouts.push(
 					setTimeout(
-						() => beat.play(beat.name,i),
+						() => beat.play(beat.name, i),
 						beat.time - startTime
 					)
 				);
 		});
 	}
 
-	play(beatName,i) {
+	play(beatName, i) {
 		clearTimeout(this.clearFaceTimeout);
 		this.setState({ playing: beatName });
 		this.audio[beatName].playSound(i);
@@ -146,7 +152,10 @@ class App extends React.Component {
 		);
 	}
 
-	stopAll() {
+	stopAll(pause = true) {
+		if (pause) {
+			this.setState({ paused: true });
+		}
 		clearTimeout(this.playLoop);
 		this.playTimeouts.forEach(to => clearTimeout(to));
 		this.playTimeouts = [];
@@ -154,11 +163,12 @@ class App extends React.Component {
 	}
 
 	clearAll() {
-		this.stopAll();
+		this.stopAll(false);
 		this.beatLoops = [];
 	}
 
 	resumeAll() {
+		this.setState({ paused: false });
 		this.playAllBeats();
 	}
 
@@ -201,13 +211,30 @@ class App extends React.Component {
 	render() {
 		return (
 			<div className="App">
-				<div onClick={() => this.audioContext.resume()}>
-					Start MUSIC
-				</div>
-				<div onClick={() => this.clearAll()}>Reset</div>
-				<div onClick={() => this.stopAll()}>Pause</div>
-				<div onClick={() => this.resumeAll()}>Resume</div>
+				{this.state.info && (
+					<Intro close={() => this.setState({ info: false })} />
+				)}
+				{this.state.start && (
+					<Start
+						close={() => {
+							this.audioContext.resume();
+							this.setState({ start: false });
+						}}
+					/>
+				)}
 
+				<Menu
+					startRecord={this.record}
+					stopRecord={this.stopRecord}
+					paused={this.state.paused}
+					reset={() => this.clearAll()}
+					pause={() => this.stopAll()}
+					play={() => this.resumeAll()}
+					help={() => {
+						this.stopAll();
+						this.setState({ info: true });
+					}}
+				/>
 				<div className="helperDiv">
 					<img
 						className="drums"
