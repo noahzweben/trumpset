@@ -5,11 +5,20 @@ import registerServiceWorker from './registerServiceWorker';
 import Drums from './drumset.svg';
 import AudioClass from './AudioClass';
 
-import Bass from './images/bass.png'
-import BassPlay from './images/bass_play.png'
-import LowRight from './images/lowRight.png'
-import LowRightPlay from './images/lowRight_play.png'
-
+import Bass from './images/bass.png';
+import BassPlay from './images/bass_play.png';
+import LowRight from './images/lowRight.png';
+import LowRightPlay from './images/lowRight_play.png';
+import LowLeft from './images/lowLeft.png';
+import LowLeftPlay from './images/lowLeft_play.png';
+import TopRight from './images/topRight.png';
+import TopRightPlay from './images/topRight_play.png';
+import TopLeft from './images/topLeft.png';
+import TopLeftPlay from './images/topLeft_play.png';
+import Cheetoh from './images/cheetoh.png';
+import CheetohPlay from './images/cheetoh_play.png';
+import Hair from './images/hair.png';
+import HairPlay from './images/hair_play.png';
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -56,9 +65,9 @@ class App extends React.Component {
 	}
 
 	record(e) {
-		// if (e.key === 'l') {
-		// 	console.log(this.beatLoops[0].loopTime);
-		// }
+		if (e.key === 'l') {
+			console.log(this.beatLoops);
+		}
 
 		if (e.key === ' ' && !this.state.recording) {
 			this.inRecording = {
@@ -131,7 +140,10 @@ class App extends React.Component {
 		clearTimeout(this.clearFaceTimeout);
 		this.setState({ playing: beatName });
 		this.audio[beatName].playSound();
-		this.clearFaceTimeout = setTimeout(() => this.setState({ playing: '' }), 500);
+		this.clearFaceTimeout = setTimeout(
+			() => this.setState({ playing: '' }),
+			500
+		);
 	}
 
 	stopAll() {
@@ -170,11 +182,8 @@ class App extends React.Component {
 		this.setState({ width: window.innerWidth, height: window.innerHeight });
 	}
 
-
 	handleClick(name) {
-		this.state.recording
-			? this.logBeat(name)
-			: this.play(name);
+		this.state.recording ? this.logBeat(name) : this.play(name);
 	}
 
 	componentDidMount() {
@@ -200,11 +209,69 @@ class App extends React.Component {
 				<div onClick={() => this.resumeAll()}>Resume</div>
 
 				<div className="helperDiv">
-				<img className='drums' src={Drums} ref={ref => this.drumRef = ref} useMap="#image-map" />
-				<img onClick={() => this.handleClick('pussy')} src={this.state.playing==='pussy' ? BassPlay : Bass} className='face bass pointer'/>
-				<img onClick={() => this.handleClick('fakeNews')} src={this.state.playing==='fakeNews' ? LowRightPlay : LowRight} className='face lowRight pointer'/>
-
+					<img
+						className="drums"
+						src={Drums}
+						ref={ref => (this.drumRef = ref)}
+						useMap="#image-map"
+					/>
+					<img
+						onClick={() => this.handleClick('pussy')}
+						src={this.state.playing === 'pussy' ? BassPlay : Bass}
+						className="face bass pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('fakeNews')}
+						src={
+							this.state.playing === 'fakeNews'
+								? LowRightPlay
+								: LowRight
+						}
+						className="face lowRight pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('crooked')}
+						src={
+							this.state.playing === 'crooked'
+								? LowLeftPlay
+								: LowLeft
+						}
+						className="face lowLeft pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('brag')}
+						src={
+							this.state.playing === 'brag'
+								? TopLeftPlay
+								: TopLeft
+						}
+						className="face topLeft pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('greatWall')}
+						src={
+							this.state.playing === 'greatWall'
+								? TopRightPlay
+								: TopRight
+						}
+						className="face topRight pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('china')}
+						src={
+							this.state.playing === 'china'
+								? CheetohPlay
+								: Cheetoh
+						}
+						className="face cheetoh pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('fired')}
+						src={this.state.playing === 'fired' ? HairPlay : Hair}
+						className="face hair pointer"
+					/>
 				</div>
+				<div className="floor" />
 			</div>
 		);
 	}
