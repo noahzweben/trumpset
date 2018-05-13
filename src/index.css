@@ -9,6 +9,10 @@ img {
 	cursor: pointer;
 }
 
+div{
+	color: white;
+}
+
 .helperDiv{
 	background: black;
 	background: radial-gradient(#003d5b, black 70%);

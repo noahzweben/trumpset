@@ -112,7 +112,7 @@ class App extends React.Component {
 			) {
 				this.playTimeouts.push(
 					setTimeout(
-						() => this.playBeats(beatLoop.beats),
+						() => this.playBeats(beatLoop.beats,i),
 						i === 0 ? 0 : beatLoop.loopTime
 					)
 				);
@@ -123,23 +123,23 @@ class App extends React.Component {
 		this.playTimeouts.push(loopTO);
 	}
 
-	playBeats(beats) {
+	playBeats(beats,i) {
 		const startTime = beats[0].time;
 		beats.forEach(beat => {
 			beat.play &&
 				this.playTimeouts.push(
 					setTimeout(
-						() => beat.play(beat.name),
+						() => beat.play(beat.name,i),
 						beat.time - startTime
 					)
 				);
 		});
 	}
 
-	play(beatName) {
+	play(beatName,i) {
 		clearTimeout(this.clearFaceTimeout);
 		this.setState({ playing: beatName });
-		this.audio[beatName].playSound();
+		this.audio[beatName].playSound(i);
 		this.clearFaceTimeout = setTimeout(
 			() => this.setState({ playing: '' }),
 			500
