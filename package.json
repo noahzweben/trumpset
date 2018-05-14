@@ -3,10 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "deep-copy": "^1.4.2",
+    "lzutf8": "^0.5.0",
+    "mobile-detect": "^1.4.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-scripts": "1.1.4",
-    "react-tooltip": "^3.5.1"
+    "react-tooltip": "^3.5.1",
+    "url-parse": "^1.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

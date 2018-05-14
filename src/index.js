@@ -6,6 +6,7 @@ import Drums from './drumset.svg';
 import AudioClass from './AudioClass';
 import Intro from './Intro';
 import Start from './Start';
+import Share from './Share';
 import Menu from './Menu';
 import Bass from './images/bass.png';
 import BassPlay from './images/bass_play.png';
@@ -21,6 +22,8 @@ import Cheetoh from './images/cheetoh.png';
 import CheetohPlay from './images/cheetoh_play.png';
 import Hair from './images/hair.png';
 import HairPlay from './images/hair_play.png';
+import { transcribeBeats, loadBeats, loadFromURL } from './helper.js';
+
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -31,6 +34,7 @@ class App extends React.Component {
 			playing: '',
 			info: false,
 			start: true,
+			sharing: false,
 			paused: false
 		};
 
@@ -55,9 +59,15 @@ class App extends React.Component {
 				))
 		);
 
-		this.beatLoops = [];
+		this.beatLoops = loadFromURL();
 		this.inRecording = {};
 		this.interval = 0;
+		if (this.beatLoops.length > 0) {
+			const startTime = this.beatLoops[0].beats[0].time;
+			this.interval =
+				this.beatLoops[0].beats[this.beatLoops[0].beats.length - 1]
+					.time - startTime;
+		}
 		this.playTimeouts = [];
 		this.playLoop = null;
 
@@ -72,6 +82,7 @@ class App extends React.Component {
 	record(e) {
 		if (e.key === 'l') {
 			console.log(this.beatLoops);
+			loadBeats(transcribeBeats(this.beatLoops));
 		}
 
 		if (e.key === ' ' && !this.state.recording) {
@@ -80,7 +91,9 @@ class App extends React.Component {
 				loopTime: new Date(),
 				beats: []
 			};
-			this.resumeAll();
+			if (this.state.paused) {
+				this.resumeAll();
+			}
 			this.setState({ recording: true });
 		}
 	}
@@ -89,6 +102,10 @@ class App extends React.Component {
 		if (e.key === ' ' && this.state.recording) {
 			this.setState({ recording: false });
 			this.logBeat('end');
+			const startTime = this.inRecording.beats[0].time;
+			this.inRecording.beats.forEach(beat => {
+				beat.time = beat.time - startTime; //saves in offset form;
+			});
 			this.beatLoops.push(this.inRecording);
 			this.inRecording = {};
 
@@ -97,11 +114,13 @@ class App extends React.Component {
 				this.interval =
 					this.beatLoops[0].beats[this.beatLoops[0].beats.length - 1]
 						.time - startTime;
+				console.log(3);
 				this.playAllBeats();
 			} else {
 				clearTimeout(this.playLoop);
 				const catchup =
 					this.interval - (new Date() - this.topOfLoopTime);
+				console.log(2);
 				var loopTO = setTimeout(() => this.playAllBeats(), catchup);
 				this.playLoop = loopTO;
 				this.playTimeouts.push(loopTO);
@@ -110,34 +129,33 @@ class App extends React.Component {
 	}
 
 	playAllBeats() {
-		this.topOfLoopTime = new Date();
-		this.beatLoops.forEach((beatLoop, i) => {
-			if (
-				(i === 0 && beatLoop.beats.length > 2) ||
-				(i > 0 && beatLoop.beats.length > 1)
-			) {
-				this.playTimeouts.push(
-					setTimeout(
-						() => this.playBeats(beatLoop.beats, i),
-						i === 0 ? 0 : beatLoop.loopTime
-					)
-				);
-			}
-		});
-		var loopTO = setTimeout(() => this.playAllBeats(), this.interval);
-		this.playLoop = loopTO;
-		this.playTimeouts.push(loopTO);
+		if (this.beatLoops.length > 0) {
+			this.topOfLoopTime = new Date();
+			this.beatLoops.forEach((beatLoop, i) => {
+				if (
+					(i === 0 && beatLoop.beats.length > 2) ||
+					(i > 0 && beatLoop.beats.length > 1)
+				) {
+					this.playTimeouts.push(
+						setTimeout(
+							() => this.playBeats(beatLoop.beats, i),
+							i === 0 ? 0 : beatLoop.loopTime
+						)
+					);
+				}
+			});
+			var loopTO = setTimeout(() => this.playAllBeats(), this.interval);
+			this.playLoop = loopTO;
+			this.playTimeouts.push(loopTO);
+		}
 	}
 
 	playBeats(beats, i) {
 		const startTime = beats[0].time;
 		beats.forEach(beat => {
-			beat.play &&
+			beat.name !== 'end' &&
 				this.playTimeouts.push(
-					setTimeout(
-						() => beat.play(beat.name, i),
-						beat.time - startTime
-					)
+					setTimeout(() => this.play(beat.name, i), beat.time)
 				);
 		});
 	}
@@ -169,6 +187,7 @@ class App extends React.Component {
 
 	resumeAll() {
 		this.setState({ paused: false });
+		console.log(4);
 		this.playAllBeats();
 	}
 
@@ -178,14 +197,14 @@ class App extends React.Component {
 		beat.time = now;
 		beat.name = name;
 		if (name !== 'end') {
-			beat.play = this.play;
-			beat.play(beat.name);
+			this.play(beat.name);
 		}
 		if (this.inRecording.beats.length === 0) {
 			//first beat in loop
 			this.inRecording.loopTime = now - this.topOfLoopTime;
 		}
 		this.inRecording.beats.push(beat);
+		//adjust offest
 	}
 
 	updateDimensions() {
@@ -214,16 +233,27 @@ class App extends React.Component {
 				{this.state.info && (
 					<Intro close={() => this.setState({ info: false })} />
 				)}
+				{this.state.sharing && (
+					<Share
+						path={transcribeBeats(this.beatLoops)}
+						close={() => this.setState({ sharing: false })}
+					/>
+				)}
 				{this.state.start && (
 					<Start
 						close={() => {
 							this.audioContext.resume();
 							this.setState({ start: false });
+							this.resumeAll();
 						}}
 					/>
 				)}
 
 				<Menu
+					share={() => {
+						this.stopAll();
+						this.setState({ sharing: true });
+					}}
 					startRecord={this.record}
 					stopRecord={this.stopRecord}
 					paused={this.state.paused}
@@ -298,7 +328,7 @@ class App extends React.Component {
 						className="face hair pointer"
 					/>
 				</div>
-				<div className="floor" />
+				<div className="floor">A Donald Trumpset</div>
 			</div>
 		);
 	}
