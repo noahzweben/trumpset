@@ -107,6 +107,7 @@ div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	overflow: scroll;
 }
 .backdrop {
 	position: fixed;
