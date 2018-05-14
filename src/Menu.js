@@ -13,8 +13,8 @@ var device = new MobileDetect(window.navigator.userAgent);
 function Menu(props) {
 	return (
 		<div className="menu">
-			<ReactTooltip place="bottom" type="light" effect="solid" />
-			{(device.mobile() || device.tablet() || device.phone()) && (
+			{!(device.mobile() || device.tablet() || device.phone()) && <ReactTooltip place="bottom" type="light" effect="solid" />}
+			{(true) && (
 				<img
 					data-tip="Record"
 					onClick={

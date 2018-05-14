@@ -23,6 +23,8 @@ import CheetohPlay from './images/cheetoh_play.png';
 import Hair from './images/hair.png';
 import HairPlay from './images/hair_play.png';
 import { transcribeBeats, loadBeats, loadFromURL } from './helper.js';
+var MobileDetect = require('mobile-detect');
+var device = new MobileDetect(window.navigator.userAgent);
 
 class App extends React.Component {
 	constructor(props) {
@@ -266,6 +268,8 @@ class App extends React.Component {
 						this.setState({ info: true });
 					}}
 				/>
+
+				{!(device.mobile() || device.tablet() || device.phone()) && <div style={{paddingTop:'10px'}} className="text-center">Hold Down Space to Record</div>}
 				<div className="helperDiv">
 					<img
 						className="drums"
