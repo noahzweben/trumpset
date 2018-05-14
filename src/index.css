@@ -99,6 +99,17 @@ div {
 	right: 15%;
 }
 
+.snare{
+	width:17%;
+	bottom:10%;
+	left:9%;
+}
+
+.symbol{
+	width:17%;
+	top:25%;
+	right:10%;
+}
 .modalHolder {
 	position: fixed;
 	width: 100%;

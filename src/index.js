@@ -22,6 +22,11 @@ import Cheetoh from './images/cheetoh.png';
 import CheetohPlay from './images/cheetoh_play.png';
 import Hair from './images/hair.png';
 import HairPlay from './images/hair_play.png';
+import SymbolPic from './images/symbol.png';
+import Snare from './images/snare.png';
+import SnarePlay from './images/snare_play.png';
+import SymbolPicPlay from './images/symbol_play.png';
+
 import { transcribeBeats, loadBeats, loadFromURL } from './helper.js';
 var MobileDetect = require('mobile-detect');
 var device = new MobileDetect(window.navigator.userAgent);
@@ -42,6 +47,8 @@ class App extends React.Component {
 
 		const sounds = [
 			{ name: 'fakeNews', file: '/audio/fakeNews.wav' },
+			{ name: 'symbol', file: '/audio/symbol.wav' },
+			{ name: 'snare', file: '/audio/snare.wav' },
 			{ name: 'china', file: '/audio/china.wav' },
 			{ name: 'greatWall', file: '/audio/greatWall.wav' },
 			{ name: 'brag', file: '/audio/brag.wav' },
@@ -331,6 +338,23 @@ class App extends React.Component {
 						onClick={() => this.handleClick('fired')}
 						src={this.state.playing === 'fired' ? HairPlay : Hair}
 						className="face hair pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('symbol')}
+						src={
+							this.state.playing === 'symbol'
+								? SymbolPicPlay
+								: SymbolPic
+						}						className="face symbol pointer"
+					/>
+					<img
+						onClick={() => this.handleClick('snare')}
+						src={
+							this.state.playing === 'snare'
+								? SnarePlay
+								: Snare
+						}
+						className="face snare pointer"
 					/>
 				</div>
 				<div className="floor">A Donald Trumpset</div>
