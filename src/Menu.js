@@ -3,6 +3,7 @@ import Help from './images/icons/help.svg';
 import Pause from './images/icons/pause.svg';
 import Play from './images/icons/play.svg';
 import Record from './images/icons/record.svg';
+import OnRecord from './images/icons/onRecord.svg';
 import Reset from './images/icons/reset.svg';
 import Share from './images/icons/share.svg';
 import ReactTooltip from 'react-tooltip';
@@ -16,9 +17,12 @@ function Menu(props) {
 			{(device.mobile() || device.tablet() || device.phone()) && (
 				<img
 					data-tip="Record"
-					onTouchStart={props.record}
-					onTouchEnd={props.stopRecord}
-					src={Record}
+					onClick={
+						props.recording
+							? e => props.stopRecord(e, true)
+							: e => props.startRecord(e, true)
+					}
+					src={props.recording ? OnRecord : Record}
 					className="menuButton"
 				/>
 			)}

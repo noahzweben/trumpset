@@ -79,13 +79,13 @@ class App extends React.Component {
 		this.updateDimensions = this.updateDimensions.bind(this);
 	}
 
-	record(e) {
+	record(e, mobile) {
 		if (e.key === 'l') {
 			console.log(this.beatLoops);
 			loadBeats(transcribeBeats(this.beatLoops));
 		}
 
-		if (e.key === ' ' && !this.state.recording) {
+		if ((e.key === ' ' || mobile) && !this.state.recording) {
 			this.inRecording = {
 				playing: false,
 				loopTime: new Date(),
@@ -98,8 +98,8 @@ class App extends React.Component {
 		}
 	}
 
-	stopRecord(e) {
-		if (e.key === ' ' && this.state.recording) {
+	stopRecord(e,mobile) {
+		if ((e.key === ' ' || mobile) && this.state.recording) {
 			this.setState({ recording: false });
 			this.logBeat('end');
 			const startTime = this.inRecording.beats[0].time;
@@ -254,6 +254,7 @@ class App extends React.Component {
 						this.stopAll();
 						this.setState({ sharing: true });
 					}}
+					recording={this.state.recording}
 					startRecord={this.record}
 					stopRecord={this.stopRecord}
 					paused={this.state.paused}

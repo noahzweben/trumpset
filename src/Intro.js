@@ -15,9 +15,9 @@ function Intro(props) {
 					</div>
 					<div>
 						<span className="num">2)</span> To record a baseline
-						beat, hold down the space bar (or record button on
+						beat, hold down the space bar (or click the record button on
 						mobile devices), click on the drums, and then release
-						the spacebar when you want the beat to repeat. The loop
+						the spacebar (or click again on the record button) when you want the beat to repeat. The loop
 						starts on your first sound, not the record button.
 					</div>
 					<div>
