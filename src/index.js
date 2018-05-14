@@ -86,7 +86,6 @@ class App extends React.Component {
 		}
 
 		if ((e.key === ' ' || mobile) && !this.state.recording) {
-			alert("WHAT");
 			this.inRecording = {
 				playing: false,
 				loopTime: new Date(),
